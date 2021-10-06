@@ -1,7 +1,8 @@
 <?php
 
+use App\Events\TaskCreated;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\FlightController;
+use App\Models\Task;
 
 /*
 |--------------------------------------------------------------------------
@@ -18,3 +19,13 @@ Route::get('/', function () {
     return view('welcome');
 });
 
+
+Route::get('tasks', function () {
+    return Task::latest()->pluck('body');
+});
+
+
+Route::post('tasks', function () {
+    $task = Task::forceCreate(request(['body']));
+    event(new TaskCreated($task));
+});
