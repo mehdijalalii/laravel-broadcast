@@ -1,8 +1,8 @@
 <?php
 
-use App\Events\TaskCreated;
 use Illuminate\Support\Facades\Route;
 use App\Models\Task;
+use App\Events\TaskCreated;
 
 /*
 |--------------------------------------------------------------------------
@@ -27,5 +27,6 @@ Route::get('tasks', function () {
 
 Route::post('tasks', function () {
     $task = Task::forceCreate(request(['body']));
-    event(new TaskCreated($task));
+    // (new TaskCreated($task))->dontBroadcastToCurrentUser();
+    TaskCreated::dispatch($task);
 });

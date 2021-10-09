@@ -2087,9 +2087,6 @@ __webpack_require__.r(__webpack_exports__);
     axios.get('/tasks').then(function (response) {
       return _this.tasks = response.data;
     });
-    window.Echo.channel('tasks').listen('TaskCreated', function (e) {
-      _this.tasks.push(e.task.body);
-    });
     window.Echo.channel('tasks').listen('TaskCreated', function (_ref) {
       var task = _ref.task;
 
